@@ -1,0 +1,175 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Patrick+Hand&display=swap');
+
+body {
+  font-family: 'Comic Neue', cursive;
+  padding: 20px;
+  text-align: center;
+  background: #fff9e6;
+  background-image: radial-gradient(#ffd6e7 1px, transparent 1px);
+  background-size: 20px 20px;
+  min-height: 100vh;
+}
+
+h1 {
+  color: #ff6b9d;
+  font-size: 3em;
+  text-shadow: 3px 3px 0 #ffdf5d, 5px 5px 0 #a6e5ff;
+  margin-bottom: 10px;
+  font-family: 'Patrick Hand', cursive;
+}
+
+p {
+  color: #5a7dff;
+  font-size: 1.3em;
+  margin-bottom: 30px;
+}
+
+h3 {
+  color: #ff8c42;
+  font-size: 1.8em;
+  margin: 25px 0 15px;
+  text-decoration: underline wavy #ffdf5d;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 8px;
+  font-size: 1.1em;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  box-shadow: 4px 4px 0 #333;
+  transition: all 0.2s;
+  font-family: 'Comic Neue', cursive;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 #333;
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 #333;
+}
+
+#animal-buttons button {
+  background-color: #a6e5ff;
+  color: #1a5b8c;
+}
+
+#object-buttons button {
+  background-color: #ffdf5d;
+  color: #8c6e1a;
+}
+
+#generateBtn {
+  background-color: #ff8c42;
+  color: white;
+  font-size: 1.3em;
+  padding: 15px 30px;
+  border-radius: 30px;
+  margin-top: 20px;
+  box-shadow: 5px 5px 0 #333;
+}
+
+button.selected {
+  transform: translateY(3px);
+  box-shadow: 2px 2px 0 #333 !important;
+  background-color: #ff6b9d !important;
+  color: white !important;
+}
+
+.story-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 30px auto;
+  width: 90%;
+  max-width: 1200px;
+}
+
+#storyImage {
+  max-width: 512px;
+  border-radius: 20px;
+  border: 6px solid white;
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+  display: none;
+}
+
+audio {
+  display: block;
+  width: 60%;
+  filter: drop-shadow(5px 5px 0 rgba(255, 107, 157, 0.3));
+}
+
+#story {
+  white-space: pre-line;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  border: 4px dashed #ff8c42;
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #333;
+  box-shadow: 10px 10px 0 rgba(255, 107, 157, 0.3);
+  position: relative;
+  min-height: 300px;
+  text-align: left;
+  width: 100%;
+}
+
+#story::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  border: 3px solid #a6e5ff;
+  border-radius: 20px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.decoration {
+  position: absolute;
+  font-size: 2em;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.star1 { top: 50px; left: 5%; color: #ff6b9d; }
+.star2 { top: 120px; right: 8%; color: #ffdf5d; }
+.star3 { bottom: 200px; left: 7%; color: #a6e5ff; }
+.star4 { bottom: 150px; right: 10%; color: #ff8c42; }
+
+.selection-counter {
+  font-size: 1.2em;
+  color: #ff6b9d;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  #story {
+    width: 100%;
+  }
+  
+  button {
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+  
+  audio {
+    width: 90%;
+  }
+}

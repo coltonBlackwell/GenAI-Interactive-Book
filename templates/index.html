@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Story Creator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="decoration star1">★</div>
+    <div class="decoration star2">✦</div>
+    <div class="decoration star3">✧</div>
+    <div class="decoration star4">✶</div>
+    
+    <h1>✨ AI Storytime Generator ✨</h1>
+    <p>Pick any combination of items to create your magical story! (Select at least 1)</p>
+
+    <h3>🐾 Choose Characters/Items:</h3>
+    <div id="animal-buttons">
+      <button onclick="selectItem(this)">🐱 Cat</button>
+      <button onclick="selectItem(this)">🐶 Dog</button>
+      <button onclick="selectItem(this)">🐘 Elephant</button>
+      <button onclick="selectItem(this)">🦊 Fox</button>
+      <button onclick="selectItem(this)">🐻 Bear</button>
+      <button onclick="selectItem(this)">🦉 Owl</button>
+      <button onclick="selectItem(this)">🦁 Lion</button>
+      <button onclick="selectItem(this)">🐧 Penguin</button>
+      <button onclick="selectItem(this)">🐰 Rabbit</button>
+      <button onclick="selectItem(this)">🦘 Kangaroo</button>
+    </div>
+
+    <h3>🎁 Choose Characters/Items:</h3>
+    <div id="object-buttons">
+      <button onclick="selectItem(this)">⚽ Ball</button>
+      <button onclick="selectItem(this)">🧢 Hat</button>
+      <button onclick="selectItem(this)">📚 Book</button>
+      <button onclick="selectItem(this)">🎒 Backpack</button>
+      <button onclick="selectItem(this)">👓 Glasses</button>
+      <button onclick="selectItem(this)">👟 Shoe</button>
+      <button onclick="selectItem(this)">📷 Camera</button>
+      <button onclick="selectItem(this)">🏮 Lantern</button>
+      <button onclick="selectItem(this)">🗺️ Map</button>
+      <button onclick="selectItem(this)">☂️ Umbrella</button>
+    </div>
+
+    <div class="selection-counter" id="selectionCounter">0 items selected</div>
+    <button id="generateBtn" onclick="generateStory()" disabled>🎪 Create My Story! 🎪</button>
+
+    <div class="story-content">
+      <img id="storyImage" width="512" height="512" style="display:none;">
+      <audio id="storyAudio" controls style="display:none;"></audio>
+      <div id="story">Your magical story will appear here!</div>
+    </div>
+  </div>
+
+  <script>
+    let selectedItems = [];
+
+    function selectItem(button) {
+      button.classList.toggle("selected");
+      
+      const itemText = button.innerText.replace(/[^a-zA-Z]/g, '');
+      
+      if (button.classList.contains("selected")) {
+        selectedItems.push(itemText);
+      } else {
+        selectedItems = selectedItems.filter(item => item !== itemText);
+      }
+      
+      document.getElementById("selectionCounter").textContent = 
+        `${selectedItems.length} item${selectedItems.length !== 1 ? 's' : ''} selected`;
+      
+      document.getElementById("generateBtn").disabled = selectedItems.length === 0;
+    }
+
+    async function generateStory() {
+      if (selectedItems.length === 0) {
+        alert("Please select at least 1 item to create a story!");
+        return;
+      }
+
+      document.getElementById("story").innerHTML = 
+        `<div style='color:#ff8c42; font-size:1.5em;'>
+          ✨ Creating your magical story with ${selectedItems.join(', ')}... ✨
+          <br><span style='font-size:0.7em;'>Please wait while the fairies work their magic!</span>
+        </div>`;
+      document.getElementById("storyImage").style.display = "none";
+      document.getElementById("storyAudio").style.display = "none";
+
+      try {
+        const response = await fetch("/generate", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: selectedItems })
+        });
+
+        const data = await response.json();
+
+        document.getElementById("story").innerText = data.story;
+        document.getElementById("storyImage").src = data.image_url;
+        document.getElementById("storyImage").style.display = "block";
+        document.getElementById("storyAudio").src = data.audio_url;
+        document.getElementById("storyAudio").style.display = "block";
+      } catch (error) {
+        document.getElementById("story").innerHTML = 
+          `<div style='color:#ff6b9d;'>
+            Oh no! The story machine took a nap!<br>
+            Please try again later.
+          </div>`;
+      }
+    }
+  </script>
+</body>
+</html>

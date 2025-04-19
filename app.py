@@ -1,48 +1,83 @@
 import os
+from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
-import pyttsx3
+from dotenv import load_dotenv
 
-
+load_dotenv()
+app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-animal1 = "cat"
-animal2 = "dragon"
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-completion = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[
-        {
-            "role": "system",
-            "content": """You are a FAMILY FRIENDLY AI designed to create clear stories for children. Also, when asked, you provide a short and vivid image generation prompt that represents the story visually."""
-        },
-        {
-            "role": "user",
-            "content": (
-                f"Create a very short story about a {animal1} and a {animal2} who become friends. "
-                "Also give me a separate short, vivid, and descriptive prompt that could be used to create an image of the story."
-                "\n\nRespond in this format:\nStory: <story here>\nImagePrompt: <short visual prompt here>"
-            )
-        },
-    ],
-    max_tokens=500,
-)
+@app.route('/generate', methods=['POST'])
+def generate():
+    try:
+        data = request.get_json()
+        items = data.get("items", ["cat"])
+        
+        if not items:
+            items = ["cat"]
+        
+        # Generate story with GPT-3.5-turbo
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Create fun children's stories with an Introduction, Problem, Solution, and a Happy ending (However never explicitly saying this!). Also provide a Story Title at the beginning. Then provide an image prompt in format: Story: <text>\nImagePrompt: <description>"
+                },
+                {
+                    "role": "user",
+                    "content": f"Create a story about: {', '.join(items)}"
+                }
+            ],
+            max_tokens=500,
+            temperature=0.7
+        )
 
-response_text = completion.choices[0].message.content
+        response_text = completion.choices[0].message.content
+        
+        if "ImagePrompt:" in response_text:
+            story, image_prompt = response_text.split("ImagePrompt:", 1)
+            story = story.replace("Story:", "").strip()
+            image_prompt = image_prompt.strip()
+        else:
+            story = response_text.strip()
+            image_prompt = f"A colorful cartoon of {', '.join(items)} playing together"
+        
+        # Generate TTS audio
+        audio_response = client.audio.speech.create(
+            model="tts-1",
+            voice="nova",
+            input=story[:4096]
+        )
 
-# Split into story and image prompt
-lines = response_text.split("ImagePrompt:")
-story = lines[0].replace("Story:", "").strip()
-image_prompt = lines[1].strip() if len(lines) > 1 else "A cartoon of a cat and a dragon."
+        audio_path = "static/story.mp3"
+        with open(audio_path, "wb") as f:
+            f.write(audio_response.content)
 
-print("Story:\n", story)
-print("\nImage Prompt:\n", image_prompt)
+        # Generate image with DALL-E 2
+        image_response = client.images.generate(
+            model="dall-e-2",
+            prompt=f"Children's book illustration of {image_prompt}. Colorful, cartoon style, happy mood.",
+            size="512x512",
+            quality="standard",
+            n=1
+        )
 
-# Image generation (use DALL·E 3 if you have access)
-response = client.images.generate(
-    model="dall-e-2",
-    prompt=image_prompt,
-    size="512x512",
-)
+        return jsonify({
+            "story": story,
+            "image_url": image_response.data[0].url,
+            "audio_url": f"/{audio_path}"
+        })
 
-image_url = response.data[0].url
-print("\nImage URL:\n", image_url)
+    except Exception as e:
+        print(f"Error generating story: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    if not os.path.exists('static'):
+        os.makedirs('static')
+    app.run(debug=True)
