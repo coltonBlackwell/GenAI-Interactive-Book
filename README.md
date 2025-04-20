@@ -42,14 +42,6 @@ ai-storytime-generator/\
 ├── requirements.txt\
 └── README.md
 
-### Customization
-
-Add more characters: Edit the animal buttons in index.html
-
-Change styling: Modify static/styles.css
-
-Adjust story length: Change max_tokens in app.py
-
 ### Example Story prompts
 Try these fun combinations:
 
