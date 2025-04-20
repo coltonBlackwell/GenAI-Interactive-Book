@@ -32,14 +32,14 @@ A magical web app that generates children's stories using AI, featuring colorful
 
 ### File Structure
 
-ai-storytime-generator/
-├── static/
-│   ├── styles.css
-│   └── story.mp3 (generated)
-├── templates/
-│   └── index.html
-├── app.py
-├── requirements.txt
+ai-storytime-generator/\
+├── static/\
+│   ├── styles.css\
+│   └── story.mp3 (generated)\
+├── templates/\
+│   └── index.html\
+├── app.py\
+├── requirements.txt\
 └── README.md
 
 ### Customization
