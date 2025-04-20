@@ -27,6 +27,8 @@
       <button onclick="selectItem(this)">🐧 Penguin</button>
       <button onclick="selectItem(this)">🐰 Rabbit</button>
       <button onclick="selectItem(this)">🦘 Kangaroo</button>
+      <button onclick="selectItem(this)">🐷 Pig</button>
+      <button onclick="selectItem(this)">🦒 Giraffe</button>
     </div>
 
     <h3>🎁 Choose Characters/Items:</h3>
@@ -41,6 +43,8 @@
       <button onclick="selectItem(this)">🏮 Lantern</button>
       <button onclick="selectItem(this)">🗺️ Map</button>
       <button onclick="selectItem(this)">☂️ Umbrella</button>
+      <button onclick="selectItem(this)">🧸 Teddy Bear</button>
+      <button onclick="selectItem(this)">🚲 Bicycle</button>
     </div>
 
     <div class="selection-counter" id="selectionCounter">0 items selected</div>
@@ -74,41 +78,53 @@
     }
 
     async function generateStory() {
-      if (selectedItems.length === 0) {
-        alert("Please select at least 1 item to create a story!");
-        return;
-      }
+        if (selectedItems.length === 0) {
+            alert("Please select at least 1 item to create a story!");
+            return;
+        }
 
-      document.getElementById("story").innerHTML = 
-        `<div style='color:#ff8c42; font-size:1.5em;'>
-          ✨ Creating your magical story with ${selectedItems.join(', ')}... ✨
-          <br><span style='font-size:0.7em;'>Please wait while the fairies work their magic!</span>
-        </div>`;
-      document.getElementById("storyImage").style.display = "none";
-      document.getElementById("storyAudio").style.display = "none";
+        // Show loading animation
+        document.getElementById("story").innerHTML = `
+            <div class="loading-container">
+            <div class="loading-fairy">
+                <div class="fairy"></div>
+                <div class="fairy-dust"></div>
+                <div class="fairy-dust"></div>
+                <div class="fairy-dust"></div>
+            </div>
+            <div style='color:#ff8c42; font-size:1.5em; text-align: center;'>
+                ✨ Creating your magical story with ${selectedItems.join(', ')}... ✨
+                <br><span style='font-size:0.7em;'>Please wait while the fairies work their magic!</span>
+            </div>
+            </div>`;
+        
+        document.getElementById("storyImage").style.display = "none";
+        document.getElementById("storyAudio").style.display = "none";
 
-      try {
-        const response = await fetch("/generate", {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: selectedItems })
-        });
+        try {
+            const response = await fetch("/generate", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: selectedItems })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        document.getElementById("story").innerText = data.story;
-        document.getElementById("storyImage").src = data.image_url;
-        document.getElementById("storyImage").style.display = "block";
-        document.getElementById("storyAudio").src = data.audio_url;
-        document.getElementById("storyAudio").style.display = "block";
-      } catch (error) {
-        document.getElementById("story").innerHTML = 
-          `<div style='color:#ff6b9d;'>
-            Oh no! The story machine took a nap!<br>
-            Please try again later.
-          </div>`;
-      }
+            // Remove loading animation and show results
+            document.getElementById("story").innerText = data.story;
+            document.getElementById("storyImage").src = data.image_url;
+            document.getElementById("storyImage").style.display = "block";
+            document.getElementById("storyAudio").src = data.audio_url;
+            document.getElementById("storyAudio").style.display = "block";
+        } catch (error) {
+            document.getElementById("story").innerHTML = 
+            `<div style='color:#ff6b9d;'>
+                Oh no! The story machine took a nap!<br>
+                Please try again later.
+            </div>`;
+        }
     }
+
   </script>
 </body>
 </html>

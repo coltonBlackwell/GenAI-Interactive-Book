@@ -173,3 +173,120 @@ audio {
     width: 90%;
   }
 }
+
+/* Add to your existing styles.css */
+.loading-fairy {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.fairy-dust {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ffdf5d;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.fairy {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff6b9d" d="M12,2L4,12L12,22L20,12L12,2Z"/></svg>');
+  background-size: contain;
+  animation: float 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+@keyframes fairy-dust {
+  0% { transform: translateY(0) scale(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100px) scale(1.5); opacity: 0; }
+}
+
+/* Create sparkle elements */
+.fairy-dust:nth-child(1) {
+  left: 20px;
+  top: 10px;
+  animation: fairy-dust 2s infinite;
+}
+.fairy-dust:nth-child(2) {
+  left: 40px;
+  top: 5px;
+  animation: fairy-dust 2s 0.3s infinite;
+}
+.fairy-dust:nth-child(3) {
+  left: 60px;
+  top: 15px;
+  animation: fairy-dust 2s 0.6s infinite;
+}
+
+/* Larger buttons */
+button {
+  padding: 18px 28px;  /* Increased from 12px 20px */
+  margin: 12px;  /* Increased from 8px */
+  font-size: 1.5em;  /* Increased from 1.1em */
+  min-width: 120px;  /* Ensure consistent width */
+}
+
+/* Larger emojis in buttons */
+button:before {
+  font-size: 1.8em;  /* Makes emojis bigger */
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Generate button */
+#generateBtn {
+  font-size: 1.8em;  /* Increased from 1.3em */
+  padding: 20px 40px;  /* Increased from 15px 30px */
+}
+
+/* Larger section headers */
+h3 {
+  font-size: 2.2em;  /* Increased from 1.8em */
+}
+
+/* Bigger decorative stars */
+.decoration {
+  font-size: 3.5em;  /* Increased from 2em */
+}
+
+/* Larger selection counter */
+.selection-counter {
+  font-size: 1.5em;  /* Increased from 1.2em */
+}
+
+/* Bigger loading fairy */
+.loading-fairy {
+  width: 150px;  /* Increased from 100px */
+  height: 150px;
+}
+
+.fairy {
+  width: 90px;  /* Increased from 60px */
+  height: 90px;
+}
+
+.fairy-dust {
+  width: 30px;  /* Increased from 20px */
+  height: 30px;
+}
+
+/* Adjust button grid layout */
+#animal-buttons, #object-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  justify-items: center;
+  margin: 20px auto;
+  max-width: 900px;
+}

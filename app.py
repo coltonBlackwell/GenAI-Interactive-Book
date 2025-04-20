@@ -22,11 +22,19 @@ def generate():
         
         # Generate story with GPT-3.5-turbo
         completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
-                    "content": "Create fun children's stories with an Introduction, Problem, Solution, and a Happy ending (However never explicitly saying this!). Also provide a Story Title at the beginning. Then provide an image prompt in format: Story: <text>\nImagePrompt: <description>"
+                    "content": """Create a fun children's story with the following structure but WITHOUT section headers:
+                    1. Begin with a title (plain text, no asterisks or formatting)
+                    2. A natural introduction
+                    3. A problem that arises
+                    4. How it gets solved
+                    5. A happy ending
+                    
+                    Write in one cohesive narrative flow without labeling sections.
+                    Then provide an image prompt in format: Story: <text>\nImagePrompt: <description>"""
                 },
                 {
                     "role": "user",
@@ -39,12 +47,22 @@ def generate():
 
         response_text = completion.choices[0].message.content
         
+        # Clean up the story text
         if "ImagePrompt:" in response_text:
             story, image_prompt = response_text.split("ImagePrompt:", 1)
             story = story.replace("Story:", "").strip()
+            
+            # Remove any remaining markdown formatting
+            story = story.replace("**", "")
+            
+            # Ensure title is clean (remove any special formatting)
+            if "\n" in story:
+                first_line = story.split("\n")[0]
+                story = first_line + "\n\n" + "\n".join(story.split("\n")[1:])
+            
             image_prompt = image_prompt.strip()
         else:
-            story = response_text.strip()
+            story = response_text.strip().replace("**", "")
             image_prompt = f"A colorful cartoon of {', '.join(items)} playing together"
         
         # Generate TTS audio
@@ -60,9 +78,9 @@ def generate():
 
         # Generate image with DALL-E 2
         image_response = client.images.generate(
-            model="dall-e-2",
+            model="dall-e-3",
             prompt=f"Children's book illustration of {image_prompt}. Colorful, cartoon style, happy mood.",
-            size="512x512",
+            size="1024x1024",
             quality="standard",
             n=1
         )
