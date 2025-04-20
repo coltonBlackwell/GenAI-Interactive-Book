@@ -1,8 +1,8 @@
-# ✨ AI Storytime Generator 🧸
+# AI Storytime Generator 🧸
 
-A magical web app that generates children's stories using AI, featuring colorful illustrations and audio narration.
+A web app that generates children's stories using AI, featuring colorful illustrations and audio narration.
 
-![App Screenshot](images/app_screenshot.png) <!-- Add your screenshot URL here -->
+![App Screenshot](images/app_screenshot.png)
 
 
 ## Features
