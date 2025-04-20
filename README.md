@@ -8,7 +8,6 @@ A magical web app that generates children's stories using AI, featuring colorful
 - 🖼️ **AI-Generated Illustrations**: Colorful images accompany each story
 - 🔊 **Audio Narration**: Stories are read aloud with text-to-speech
 - 🎮 **Child-Friendly Interface**: Large buttons, playful design, and fun animations
-- 🌈 **Customizable**: Select any combination of characters and items
 
 ## How It Works
 
