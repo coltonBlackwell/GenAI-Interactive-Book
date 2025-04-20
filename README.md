@@ -35,23 +35,15 @@ A magical web app that generates children's stories using AI, featuring colorful
 
 ### File Structure
 
-ai-storytime-generator/
-├── static/
-│   ├── styles.css
-│   └── story.mp3 (generated)
-├── templates/
-│   └── index.html
-├── app.py
-├── requirements.txt
+ai-storytime-generator/\
+├── static/\
+│   ├── styles.css\
+│   └── story.mp3 (generated)\
+├── templates/\
+│   └── index.html\
+├── app.py\
+├── requirements.txt\
 └── README.md
-
-### Customization
-
-Add more characters: Edit the animal buttons in index.html
-
-Change styling: Modify static/styles.css
-
-Adjust story length: Change max_tokens in app.py
 
 ### Example Story prompts
 Try these fun combinations:
@@ -59,6 +51,3 @@ Try these fun combinations:
 - 🦁 Lion + 🧸 Teddy Bear
 - 🦒 Giraffe + 🚲 Bicycle
 - 🐧 Penguin + 🏮 Lantern
-
-License
-MIT License
