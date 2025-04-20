@@ -48,6 +48,3 @@ Try these fun combinations:
 - 🦁 Lion + 🧸 Teddy Bear
 - 🦒 Giraffe + 🚲 Bicycle
 - 🐧 Penguin + 🏮 Lantern
-
-License
-MIT License
