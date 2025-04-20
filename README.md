@@ -2,6 +2,9 @@
 
 A magical web app that generates children's stories using AI, featuring colorful illustrations and audio narration.
 
+![App Screenshot](images/app_screenshot.png) <!-- Add your screenshot URL here -->
+
+
 ## Features
 
 - 🎨 **Interactive Story Creation**: Combine animals and objects to generate unique stories
