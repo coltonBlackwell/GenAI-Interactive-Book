@@ -32,6 +32,7 @@ def generate():
                     3. A problem that arises
                     4. How it gets solved
                     5. A happy ending
+                    THE ENTIRE STOEY MUST BE UNDER 400 WORDS.
                     
                     Write in one cohesive narrative flow without labeling sections.
                     Then provide an image prompt in format: Story: <text>\nImagePrompt: <description>"""
