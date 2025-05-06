@@ -48,3 +48,7 @@ Try these fun combinations:
 - 🦁 Lion + 🧸 Teddy Bear
 - 🦒 Giraffe + 🚲 Bicycle
 - 🐧 Penguin + 🏮 Lantern
+
+## Learn More
+
+- Check out this [video](https://www.youtube.com/watch?v=UocUxdKOaRs)!
