@@ -4,10 +4,10 @@ A web app that generates children's stories using AI, featuring colorful illustr
 
 ## Features
 
-- 🎨 **Interactive Story Creation**: Combine animals and objects to generate unique stories
-- 🖼️ **AI-Generated Illustrations**: Colorful images accompany each story
-- 🔊 **Audio Narration**: Stories are read aloud with text-to-speech
-- 🎮 **Child-Friendly Interface**: Large buttons, playful design, and fun animations
+- **Interactive Story Creation**: Combine animals and objects to generate unique stories
+- **AI-Generated Illustrations**: Colorful images accompany each story
+- **Audio Narration**: Stories are read aloud with text-to-speech
+- **Child-Friendly Interface**: Large buttons, playful design, and fun animations
 
 ## How It Works
 
@@ -30,25 +30,7 @@ A web app that generates children's stories using AI, featuring colorful illustr
 - OpenAI API key
 - Flask
 
-### File Structure
-
-ai-storytime-generator/\
-├── static/\
-│   ├── styles.css\
-│   └── story.mp3 (generated)\
-├── templates/\
-│   └── index.html\
-├── app.py\
-├── requirements.txt\
-└── README.md
-
-### Example Story prompts
-Try these fun combinations:
-
-- 🦁 Lion + 🧸 Teddy Bear
-- 🦒 Giraffe + 🚲 Bicycle
-- 🐧 Penguin + 🏮 Lantern
-
 ## Learn More
 
-- Check out this [video](https://www.youtube.com/watch?v=UocUxdKOaRs)!
+▶️ Check it out on [Youtube](https://www.youtube.com/watch?v=UocUxdKOaRs)!\
+🧑‍💻 Read more about it on my [website](https://coltonblackwell.github.io/story_gen.html)!
